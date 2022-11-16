@@ -18,6 +18,7 @@ class BigText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      maxLines: 1, //show text in just one line
       overflow: overflow,
       style: TextStyle(
           fontSize: size,
