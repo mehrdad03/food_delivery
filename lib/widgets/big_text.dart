@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:food_delivery/utils/dimensions.dart';
 
 class BigText extends StatelessWidget {
   Color? color;
@@ -21,7 +22,7 @@ class BigText extends StatelessWidget {
       maxLines: 1, //show text in just one line
       overflow: overflow,
       style: TextStyle(
-          fontSize: size,
+          fontSize: Dimensions.font20,
           fontFamily: 'Roboto',
           color: color,
           fontWeight: FontWeight.w400),
