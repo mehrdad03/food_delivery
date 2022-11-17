@@ -22,7 +22,7 @@ class BigText extends StatelessWidget {
       maxLines: 1, //show text in just one line
       overflow: overflow,
       style: TextStyle(
-          fontSize: Dimensions.font20,
+          fontSize: size == 0 ? Dimensions.font20 : size,
           fontFamily: 'Roboto',
           color: color,
           fontWeight: FontWeight.w400),

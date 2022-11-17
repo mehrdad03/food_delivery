@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimensions.dart';
+import 'package:food_delivery/widgets/app_column.dart';
 import 'package:food_delivery/widgets/big_text.dart';
 import 'package:food_delivery/widgets/icon_and_text_widget.dart';
 import 'package:food_delivery/widgets/small_text.dart';
@@ -113,7 +114,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                       height: Dimensions.listViewImgSize,
                       decoration: BoxDecoration(
                           borderRadius:
-                          BorderRadius.circular(Dimensions.radius20),
+                              BorderRadius.circular(Dimensions.radius20),
                           color: Colors.white38,
                           image: const DecorationImage(
                               fit: BoxFit.cover,
@@ -122,13 +123,14 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     Expanded(
                       child: Container(
                         height: Dimensions.listViewTextContainerSize,
-                        padding: EdgeInsets.only(left: Dimensions.width10,right: Dimensions.width20),
+                        padding: EdgeInsets.only(
+                            left: Dimensions.width10,
+                            right: Dimensions.width20),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
-                                topRight:
-                                Radius.circular(Dimensions.radius20),
+                                topRight: Radius.circular(Dimensions.radius20),
                                 bottomRight:
-                                Radius.circular(Dimensions.radius20)),
+                                    Radius.circular(Dimensions.radius20)),
                             color: Colors.white),
                         child: Padding(
                           padding: EdgeInsets.only(
@@ -140,7 +142,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                             children: [
                               BigText(
                                   text:
-                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit"),
+                                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit"),
                               SizedBox(
                                 height: Dimensions.height10,
                               ),
@@ -150,7 +152,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                               ),
                               Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   IconAndTextWidget(
                                       text: 'Normal',
@@ -246,60 +248,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               child: Container(
                 padding: EdgeInsets.only(
                     top: Dimensions.height15, left: 15, right: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BigText(text: "Chinese Side"),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        Wrap(
-                          //put children horizontally
-                          children: List.generate(
-                              5,
-                              (index) => Icon(
-                                    Icons.star,
-                                    color: AppColors.mainColor,
-                                    size: 15,
-                                  )),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        SmallText(text: "4.5"),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        SmallText(text: "1287  comments"),
-                        SizedBox(
-                          height: Dimensions.height10,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: Dimensions.height20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconAndTextWidget(
-                            text: 'Normal',
-                            icon: Icons.circle_sharp,
-                            iconColor: AppColors.iconColor1),
-                        IconAndTextWidget(
-                            text: '1.7',
-                            icon: Icons.location_on,
-                            iconColor: AppColors.mainColor),
-                        IconAndTextWidget(
-                            text: 'Normal',
-                            icon: Icons.access_time_rounded,
-                            iconColor: AppColors.iconColor2),
-                      ],
-                    )
-                  ],
-                ),
+                child: AppColumn(text: 'Chinese Side',),
               ),
             ),
           ),
