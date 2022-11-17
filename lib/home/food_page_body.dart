@@ -47,6 +47,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     //print(MediaQuery.of(context).size.height.toString());
     return Column(
       children: [
+        /*slider section*/
         Container(
           height: Dimensions.pageView,
           child: PageView.builder(
@@ -56,6 +57,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 return _buildPageItem(position);
               }),
         ),
+        /*dots*/
         DotsIndicator(
           dotsCount: 5,
           position: _currentPageValue,
@@ -66,7 +68,113 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             activeShape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0)),
           ),
-        )
+        ),
+        /*popular text*/
+        SizedBox(
+          height: Dimensions.height30,
+        ),
+        Container(
+          margin: EdgeInsets.only(left: Dimensions.width30),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              BigText(text: "popular"),
+              SizedBox(width: Dimensions.width10),
+              Container(
+                child: BigText(
+                  text: ".",
+                  color: Colors.black26,
+                ),
+              ),
+              SizedBox(width: Dimensions.width10),
+              Container(
+                margin: EdgeInsets.only(bottom: 2),
+                child: SmallText(text: "Food paring"),
+              ),
+            ],
+          ),
+        ),
+        /*list of food and images*/
+        ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              return Container(
+                margin: EdgeInsets.only(
+                    left: Dimensions.width20,
+                    right: Dimensions.width20,
+                    bottom: Dimensions.height10),
+                child: Row(
+                  children: [
+                    /*image*/
+                    Container(
+                      width: Dimensions.listViewImgSize,
+                      height: Dimensions.listViewImgSize,
+                      decoration: BoxDecoration(
+                          borderRadius:
+                          BorderRadius.circular(Dimensions.radius20),
+                          color: Colors.white38,
+                          image: const DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage("assets/image/food0.png"))),
+                    ),
+                    Expanded(
+                      child: Container(
+                        height: Dimensions.listViewTextContainerSize,
+                        padding: EdgeInsets.only(left: Dimensions.width10,right: Dimensions.width20),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topRight:
+                                Radius.circular(Dimensions.radius20),
+                                bottomRight:
+                                Radius.circular(Dimensions.radius20)),
+                            color: Colors.white),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            left: Dimensions.width10,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              BigText(
+                                  text:
+                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit"),
+                              SizedBox(
+                                height: Dimensions.height10,
+                              ),
+                              SmallText(text: "Cras sit amet erat diam. "),
+                              SizedBox(
+                                height: Dimensions.height10,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  IconAndTextWidget(
+                                      text: 'Normal',
+                                      icon: Icons.circle_sharp,
+                                      iconColor: AppColors.iconColor1),
+                                  IconAndTextWidget(
+                                      text: '1.7',
+                                      icon: Icons.location_on,
+                                      iconColor: AppColors.mainColor),
+                                  IconAndTextWidget(
+                                      text: 'Normal',
+                                      icon: Icons.access_time_rounded,
+                                      iconColor: AppColors.iconColor2),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            })
       ],
     );
   }
@@ -105,7 +213,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         children: [
           Container(
               height: Dimensions.pageViewContainer,
-              margin:  EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10),
+              margin: EdgeInsets.only(
+                  left: Dimensions.width10, right: Dimensions.width10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Dimensions.radius30),
                 color: index.isEven ? AppColors.mainColor : Colors.black54,
@@ -118,7 +227,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             alignment: Alignment.bottomCenter,
             child: Container(
               height: Dimensions.pageViewTextContainer,
-              margin:  EdgeInsets.only(
+              margin: EdgeInsets.only(
                 left: Dimensions.width30,
                 bottom: Dimensions.height20,
                 right: Dimensions.width30,
@@ -135,7 +244,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     BoxShadow(color: Colors.white, offset: Offset(5, 0)),
                   ]),
               child: Container(
-                padding: EdgeInsets.only(top: Dimensions.height15, left: 15, right: 15),
+                padding: EdgeInsets.only(
+                    top: Dimensions.height15, left: 15, right: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -163,12 +273,12 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                           width: 10,
                         ),
                         SmallText(text: "1287  comments"),
-                         SizedBox(
+                        SizedBox(
                           height: Dimensions.height10,
                         ),
                       ],
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: Dimensions.height20,
                     ),
                     Row(
