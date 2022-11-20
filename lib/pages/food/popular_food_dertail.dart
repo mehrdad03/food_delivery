@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/controllers/popular_product_controller.dart';
+import 'package:food_delivery/pages/home/main_food_page.dart';
+import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/widgets/app_column.dart';
 import 'package:food_delivery/widgets/app_icon.dart';
 import 'package:food_delivery/widgets/expandable_text.dart';
@@ -7,14 +10,19 @@ import 'package:food_delivery/widgets/expandable_text.dart';
 import '../../utils/colors.dart';
 import '../../utils/dimensions.dart';
 import '../../widgets/big_text.dart';
-import '../../widgets/icon_and_text_widget.dart';
-import '../../widgets/small_text.dart';
+import 'package:get/get.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({Key? key}) : super(key: key);
+  final int pageId;
+
+  const PopularFoodDetail({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<PopularProductController>().popularProductsList[pageId];
+    /*print(pageId.toString());
+    print(product.name);*/
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -26,10 +34,12 @@ class PopularFoodDetail extends StatelessWidget {
               child: Container(
                 width: double.maxFinite,
                 height: Dimensions.popularFoodImageSize,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage("assets/image/food0.png"))),
+                        image: NetworkImage(AppConstants.BASE_URL +
+                            AppConstants.UPLOAD_URL +
+                            product.img))),
               )),
           /*icon widgets*/
           Positioned(
@@ -38,9 +48,14 @@ class PopularFoodDetail extends StatelessWidget {
               right: Dimensions.width20,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  AppIcon(
-                    icon: Icons.arrow_back_ios,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => MainFoodPage());
+                    },
+                    child: const AppIcon(
+                      icon: Icons.arrow_back_ios,
+                    ),
                   ),
                   AppIcon(icon: Icons.shopping_cart_outlined)
                 ],
@@ -65,8 +80,8 @@ class PopularFoodDetail extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const AppColumn(
-                        text: 'Chinese Side',
+                      AppColumn(
+                        text: product.name,
                       ),
                       SizedBox(
                         height: Dimensions.height20,
@@ -75,11 +90,9 @@ class PopularFoodDetail extends StatelessWidget {
                       SizedBox(
                         height: Dimensions.height20,
                       ),
-                      const Expanded(
+                      Expanded(
                           child: SingleChildScrollView(
-                        child: ExpandableText(
-                            text:
-                                "Lorem ipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametem ipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametem ipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametem ipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametem ipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametem ipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametem ipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametipsum dolor sit ametipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet erat diam. Maecenas ultrices porta lorem et volutpat. Suspendisse nec diam in lorem placerat cursus. Duis scelerisque, urna in dignissim consectetur, risus nunc sagittis nulla, vel convallis nunc urna sed"),
+                        child: ExpandableText(text: product.description),
                       ))
                     ],
                   ),
@@ -130,7 +143,7 @@ class PopularFoodDetail extends StatelessWidget {
                   color: AppColors.mainColor,
                   borderRadius: BorderRadius.circular(Dimensions.radius20)),
               child: BigText(
-                text: "\$0.08 Add to cart",
+                text: "\$ ${product.price}  | Add to cart",
                 color: Colors.white,
               ),
             )
