@@ -2,6 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
+import 'package:food_delivery/controllers/recommended_popular_product_controller.dart';
 import 'package:food_delivery/models/products_model.dart';
 import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/utils/colors.dart';
@@ -55,7 +56,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         /*slider section*/
         GetBuilder<PopularProductController>(
           builder: (popularProducts) {
-            return popularProducts.isLoaded?Container(
+            return popularProducts.isLoaded ? Container(
               height: Dimensions.pageView,
               child: PageView.builder(
                   controller: pageController,
@@ -64,7 +65,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     return _buildPageItem(position,
                         popularProducts.popularProductsList[position]);
                   }),
-            ):CircularProgressIndicator(
+            ) : CircularProgressIndicator(
               color: AppColors.mainColor,
             );
           },
@@ -94,7 +95,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              BigText(text: "popular"),
+              BigText(text: "Recommended"),
               SizedBox(width: Dimensions.width10),
               Container(
                 child: BigText(
@@ -111,85 +112,93 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           ),
         ),
         /*list of food and images*/
-        ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.only(
-                    left: Dimensions.width20,
-                    right: Dimensions.width20,
-                    bottom: Dimensions.height10),
-                child: Row(
-                  children: [
-                    /*image*/
-                    Container(
-                      width: Dimensions.listViewImgSize,
-                      height: Dimensions.listViewImgSize,
-                      decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius20),
-                          color: Colors.white38,
-                          image: const DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage("assets/image/food0.png"))),
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: Dimensions.listViewTextContainerSize,
-                        padding: EdgeInsets.only(
-                            left: Dimensions.width10,
-                            right: Dimensions.width20),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(Dimensions.radius20),
-                                bottomRight:
-                                    Radius.circular(Dimensions.radius20)),
-                            color: Colors.white),
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            left: Dimensions.width10,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              BigText(
-                                  text:
-                                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit"),
-                              SizedBox(
-                                height: Dimensions.height10,
+        GetBuilder<RecommendedPopularProductController>(
+            builder: (recommendedProduct) {
+              return recommendedProduct.isLoaded?ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: recommendedProduct.recommendedPopularProductsList.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: EdgeInsets.only(
+                          left: Dimensions.width20,
+                          right: Dimensions.width20,
+                          bottom: Dimensions.height10),
+                      child: Row(
+                        children: [
+                          /*image*/
+                          Container(
+                            width: Dimensions.listViewImgSize,
+                            height: Dimensions.listViewImgSize,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                BorderRadius.circular(Dimensions.radius20),
+                                color: Colors.white38,
+                                image:  DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                        "${AppConstants.BASE_URL}${AppConstants.UPLOAD_URL}${recommendedProduct.recommendedPopularProductsList[index].img
+                                            }")),
+                            )),
+                          Expanded(
+                            child: Container(
+                              height: Dimensions.listViewTextContainerSize,
+                              padding: EdgeInsets.only(
+                                  left: Dimensions.width10,
+                                  right: Dimensions.width20),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(
+                                          Dimensions.radius20),
+                                      bottomRight:
+                                      Radius.circular(Dimensions.radius20)),
+                                  color: Colors.white),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  left: Dimensions.width10,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    BigText(
+                                        text:recommendedProduct.recommendedPopularProductsList[index].name),
+                                    SizedBox(
+                                      height: Dimensions.height10,
+                                    ),
+                                    SmallText(
+                                        text: "Cras sit amet erat diam. "),
+                                    SizedBox(
+                                      height: Dimensions.height10,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        IconAndTextWidget(
+                                            text: 'Normal',
+                                            icon: Icons.circle_sharp,
+                                            iconColor: AppColors.iconColor1),
+                                        IconAndTextWidget(
+                                            text: '1.7',
+                                            icon: Icons.location_on,
+                                            iconColor: AppColors.mainColor),
+                                        IconAndTextWidget(
+                                            text: 'Normal',
+                                            icon: Icons.access_time_rounded,
+                                            iconColor: AppColors.iconColor2),
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
-                              SmallText(text: "Cras sit amet erat diam. "),
-                              SizedBox(
-                                height: Dimensions.height10,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  IconAndTextWidget(
-                                      text: 'Normal',
-                                      icon: Icons.circle_sharp,
-                                      iconColor: AppColors.iconColor1),
-                                  IconAndTextWidget(
-                                      text: '1.7',
-                                      icon: Icons.location_on,
-                                      iconColor: AppColors.mainColor),
-                                  IconAndTextWidget(
-                                      text: 'Normal',
-                                      icon: Icons.access_time_rounded,
-                                      iconColor: AppColors.iconColor2),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
+                            ),
+                          )
+                        ],
                       ),
-                    )
-                  ],
-                ),
+                    );
+                  }):CircularProgressIndicator(
+                color: AppColors.mainColor,
               );
             })
       ],
@@ -238,7 +247,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 image: DecorationImage(
                     fit: BoxFit.cover,
                     image: NetworkImage(
-                        "${AppConstants.BASE_URL}/uploads/${popularProduct.img!}")),
+                        "${AppConstants.BASE_URL}${AppConstants.UPLOAD_URL}${popularProduct
+                            .img!}")),
               )),
           Align(
             //like position widget

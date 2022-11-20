@@ -9,10 +9,10 @@ class BigText extends StatelessWidget {
 
   BigText(
       {Key? key,
-      this.color = const Color(0xFF332d2b),
-      required this.text,
-      this.size = 20,
-      this.overflow = TextOverflow.ellipsis})
+        this.color = const Color(0xFF332d2b),
+        required this.text,
+        this.size = 20,
+        this.overflow = TextOverflow.ellipsis})
       : super(key: key);
 
   @override
