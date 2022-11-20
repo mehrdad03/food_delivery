@@ -194,7 +194,6 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             })
       ],
     );
-
   }
 
   Widget _buildPageItem(int index, ProductModel popularProduct) {
