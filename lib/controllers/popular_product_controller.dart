@@ -64,6 +64,10 @@ class PopularProductController extends GetxController {
     if ((quantity + _inCartItems) < 0) {
       Get.snackbar("Item Count", "You can't reduce more !",
           backgroundColor: Colors.white);
+      if (_inCartItems > 0) {
+        _quantity = -_inCartItems;
+        return _quantity;
+      }
       return 0;
     } else if ((quantity + _inCartItems) > 20) {
       Get.snackbar("Item Count", "You can't add more !",
@@ -96,7 +100,7 @@ class PopularProductController extends GetxController {
       print("id is ${value.id}quantity is ${value.quantity}");
     });
 
-    update();//for update parameter in ui
+    update(); //for update parameter in ui
   }
 
   int get totalItems {
