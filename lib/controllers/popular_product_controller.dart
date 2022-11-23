@@ -72,35 +72,32 @@ class PopularProductController extends GetxController {
     }
   }
 
-  void initProduct(ProductModel product,CartController cart) {
+  void initProduct(ProductModel product, CartController cart) {
     _quantity = 0;
     _inCartItems = 0;
     _cart = cart;
-    var exist=false;
-    exist=_cart.existInCart(product);
+    var exist = false;
+    exist = _cart.existInCart(product);
     //print("exsit or not "+exist.toString());
-    if(exist){
-      _inCartItems=_cart.getQuantity(product);
-      print("quantity is the cart "+_inCartItems.toString());
+    if (exist) {
+      _inCartItems = _cart.getQuantity(product);
+      print("quantity is the cart " + _inCartItems.toString());
     }
     //get from storage _inCartItems
   }
 
   void addItem(ProductModel product) {
-    //if (quantity > 0) {
-      _cart.addItem(product, _quantity);
-      _quantity=0;
-      _inCartItems=_cart.getQuantity(product);
-      _cart.items.forEach((key, value) {
-        print("id is " +
-            value.id.toString() +
-            "quantity is " +
-            value.quantity.toString());
-      });
-  /*  } else {
-      Get.snackbar(
-          "Item Count", "You should at least add an item in the cart !",
-          backgroundColor: AppColors.mainColor);
-    }*/
+    _cart.addItem(product, _quantity);
+    _quantity = 0;
+    _inCartItems = _cart.getQuantity(product);
+    _cart.items.forEach((key, value) {
+      print("id is ${value.id}quantity is ${value.quantity}");
+    });
+
+    update();//for update parameter in ui
+  }
+
+  int get totalItems {
+    return _cart.totalItems;
   }
 }
